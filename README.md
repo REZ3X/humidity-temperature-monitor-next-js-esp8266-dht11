@@ -2,6 +2,11 @@
 
 This is a [Next.js](https://nextjs.org) project for monitoring humidity and temperature, bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Hardware Requirements
+
+- ESP8266
+- DHT11
+
 ## Getting Started
 
 First, run the development server:
