@@ -19,12 +19,10 @@ db.connect((err) => {
 /**
  * Handles GET requests to retrieve the latest weather data.
  *
- * @param {Request} req - The incoming request object.
- * @param {Response} res - The outgoing response object.
  * @returns {Promise<Response>} A promise that resolves to a Response object containing the weather data or an error message.
  */
-export async function GET(req, res) {
-  return new Promise((resolve, reject) => {
+export async function GET() {
+  return new Promise((resolve) => {
     db.query('SELECT * FROM weather_data ORDER BY timestamp DESC LIMIT 10', (err, results) => {
       if (err) {
         console.error('Error retrieving data:', err);
@@ -33,5 +31,36 @@ export async function GET(req, res) {
         resolve(new Response(JSON.stringify(results), { status: 200 }));
       }
     });
+  });
+}
+
+/**
+ * Handles POST requests to insert temperature and humidity data into the database.
+ *
+ * @param {Request} req - The incoming request object.
+ * @returns {Promise<Response>} - A promise that resolves to a Response object.
+ *
+ * @throws {Error} - Throws an error if there is an issue with the database query.
+ */
+export async function POST(req) {
+  const { temperature, humidity } = await req.json();
+
+  if (typeof temperature !== 'number' || typeof humidity !== 'number') {
+    return new Response(JSON.stringify({ error: 'Invalid data' }), { status: 400 });
+  }
+
+  return new Promise((resolve) => {
+    db.query(
+      'INSERT INTO weather_data (temperature, humidity) VALUES (?, ?)',
+      [temperature, humidity],
+      (err) => {
+        if (err) {
+          console.error('Error inserting data:', err);
+          resolve(new Response(JSON.stringify({ error: 'Error inserting data' }), { status: 500 }));
+        } else {
+          resolve(new Response(JSON.stringify({ message: 'Data inserted successfully' }), { status: 200 }));
+        }
+      }
+    );
   });
 }
