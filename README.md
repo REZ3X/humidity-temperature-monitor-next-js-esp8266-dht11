@@ -6,6 +6,15 @@ This is a [Next.js](https://nextjs.org) project for monitoring humidity and temp
 
 - ESP8266
 - DHT11
+- Male to Male cable
+
+## Wiring
+
+| ESP826 | DHT11 |
+|--------|-------|
+|  3V3   |  VCC  |
+|  GND   |  GND  |
+|  D5    |  DAT  |
 
 ## Getting Started
 
