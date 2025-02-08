@@ -20,7 +20,7 @@ export default function Home() {
       try {
         const response = await fetch("/api/weather")
         const data = await response.json()
-        setWeatherData(data)
+        console.log("Fetched weather data:", data) // Log the fetched dat
       } catch (error) {
         console.error("Failed to fetch weather data:", error)
       } finally {
