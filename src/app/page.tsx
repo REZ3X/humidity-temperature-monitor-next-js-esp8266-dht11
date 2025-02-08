@@ -112,7 +112,7 @@ export default function Home() {
                           </div>
                         </div>
                         <time className="text-xs sm:text-sm text-blue-400 font-medium">
-                          {new Date(new Date(entry.timestamp).getTime() + 7 * 60 * 60 * 1000).toLocaleTimeString("id-ID", { timeZone: "Asia/Jakarta", hour12: false })} WIB
+                          {new Date(entry.timestamp).toLocaleTimeString("id-ID", { timeZone: "Asia/Jakarta", hour12: false })} WIB
                         </time>
                       </div>
                     </div>
