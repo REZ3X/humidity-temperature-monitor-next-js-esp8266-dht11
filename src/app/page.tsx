@@ -12,7 +12,7 @@ interface WeatherEntry {
 }
 
 export default function Home() {
-  const [weatherData, setWeatherData] = useState<WeatherEntry[]>([])
+  const [monitoringData, setMonitoringData] = useState<WeatherEntry[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -20,6 +20,7 @@ export default function Home() {
       try {
         const response = await fetch("/api/data")
         const data = await response.json()
+        setMonitoringData(data)
         console.log("Fetched weather data:", data)
       } catch (error) {
         console.error("Failed to fetch weather data:", error)
@@ -65,17 +66,17 @@ export default function Home() {
               {loading ? (
                 <Skeleton className="h-20 sm:h-24 rounded-lg" />
               ) : (
-                weatherData[0] && (
+                monitoringData[0] && (
                   <div className="flex flex-col sm:flex-row justify-around items-center gap-4 sm:gap-6">
                     <div className="text-center w-full sm:w-auto p-3 sm:p-4 rounded-xl transition-all duration-300 hover:scale-105">
-                      <div className={`text-3xl sm:text-4xl md:text-5xl font-bold p-3 sm:p-4 rounded-lg ${getTemperatureColor(weatherData[0].temperature)}`}>
-                        {weatherData[0].temperature}°C
+                      <div className={`text-3xl sm:text-4xl md:text-5xl font-bold p-3 sm:p-4 rounded-lg ${getTemperatureColor(monitoringData[0].temperature)}`}>
+                        {monitoringData[0].temperature}°C
                       </div>
                       <div className="text-blue-600 mt-2 font-medium">Temperature</div>
                     </div>
                     <div className="text-center w-full sm:w-auto p-3 sm:p-4 rounded-xl transition-all duration-300 hover:scale-105">
-                      <div className={`text-3xl sm:text-4xl md:text-5xl font-bold p-3 sm:p-4 rounded-lg ${getHumidityColor(weatherData[0].humidity)}`}>
-                        {weatherData[0].humidity}%
+                      <div className={`text-3xl sm:text-4xl md:text-5xl font-bold p-3 sm:p-4 rounded-lg ${getHumidityColor(monitoringData[0].humidity)}`}>
+                        {monitoringData[0].humidity}%
                       </div>
                       <div className="text-blue-600 mt-2 font-medium">Humidity</div>
                     </div>
@@ -97,7 +98,7 @@ export default function Home() {
                 ))
               ) : (
                 <div className="space-y-3 max-h-[250px] sm:max-h-[300px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-blue-200 scrollbar-track-transparent">
-                  {weatherData.map((entry) => (
+                  {monitoringData.map((entry) => (
                     <div
                       key={entry.id}
                       className="bg-white/80 p-3 sm:p-4 rounded-lg shadow-sm border border-blue-100 hover:shadow-md hover:bg-white/95 transition-all duration-300"
