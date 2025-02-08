@@ -18,9 +18,9 @@ export default function Home() {
   useEffect(() => {
     async function fetchWeatherData() {
       try {
-        const response = await fetch("/api/weather")
+        const response = await fetch("/api/data")
         const data = await response.json()
-        console.log("Fetched weather data:", data) // Log the fetched dat
+        console.log("Fetched weather data:", data)
       } catch (error) {
         console.error("Failed to fetch weather data:", error)
       } finally {
